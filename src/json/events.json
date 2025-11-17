@@ -1,0 +1,245 @@
+[
+  {
+    "name": "Abandoned Supermarket",
+    "description": "<name> enters a ruined supermarket. Shelves are smashed and dust fills the air.",
+    "choices": {
+      "search": {
+        "dialog": "A rat leaps out and scratches you while scavenging the shelves.",
+        "health": -15,
+        "foods": [{ "name": "Bread", "amount": 2 }]
+      },
+      "leave": {
+        "dialog": "You leave before anything else happens.",
+        "stamina": 15
+      }
+    }
+  },
+
+  {
+    "name": "Wandering Dog",
+    "description": "A thin, starving dog approaches <name> cautiously.",
+    "choices": {
+      "feed": {
+        "dialog": "The dog devours your {foodName} and looks at you gratefully before running off.",
+        "health": 10,
+        "stamina": 25,
+        "removeFood": { "amount": 1 }
+      },
+      "scare": {
+        "dialog": "You shout loudly. The dog flees, but your throat strains.",
+        "health": -10
+      }
+    }
+  },
+
+  {
+    "name": "Gun Store Ruins",
+    "description": "The collapsed gun shop lies silent. Rusted metal glints in the rubble.",
+    "choices": {
+      "search": {
+        "dialog": "You crawl inside and find a shotgun under debris.",
+        "weapons": [{ "name": "Shotgun" }],
+        "items": [
+          { "name": "AmmoItem", "amount": 4, "category": "Shotgun" }
+        ],
+        "stamina": -20
+      },
+      "avoid": {
+        "dialog": "You decide the building is too unstable."
+      }
+    }
+  },
+
+  {
+    "name": "Abandoned Kitchen",
+    "description": "Inside a destroyed home, the kitchen cabinets remain untouched.",
+    "choices": {
+      "search": {
+        "dialog": "You find a sealed instant noodle pack—surprising it survived.",
+        "foods": [{ "name": "Noodle", "amount": 1 }]
+      },
+      "leave": {
+        "dialog": "The rotten smell forces you out."
+      }
+    }
+  },
+
+  {
+    "name": "Military Supply Drop",
+    "description": "A half-broken military crate lies in the mud.",
+    "choices": {
+      "open": {
+        "dialog": "You pry the crate open and find a clean shotgun with shells.",
+        "weapons": [{ "name": "Shotgun" }],
+        "items": [
+          { "name": "AmmoItem", "amount": 6, "category": "Shotgun" }
+        ]
+      },
+      "ignore": {
+        "dialog": "You avoid it—something feels off."
+      }
+    }
+  },
+
+  {
+    "name": "Vending Machine",
+    "description": "An untouched vending machine stands between collapsed buildings.",
+    "choices": {
+      "kick": {
+        "dialog": "You kick it hard. Pain shoots up your leg, but a snack falls out.",
+        "health": -10,
+        "foods": [{ "name": "Cracker", "amount": 1 }]
+      },
+      "shake": {
+        "dialog": "You shake it aggressively, but nothing drops.",
+        "stamina": -10
+      }
+    }
+  },
+
+  {
+    "name": "Gas Station Boxes",
+    "description": "Several sealed boxes remain near an exploded gas station.",
+    "choices": {
+      "search": {
+        "dialog": "You find antibiotics, but a metal shard slices your hand.",
+        "health": -10,
+        "items": [{ "name": "Antibiotic", "amount": 1 }]
+      },
+      "avoid": {
+        "dialog": "You avoid the unstable ruins."
+      }
+    }
+  },
+
+  {
+    "name": "Alley Zombie",
+    "description": "A lone zombie blocks the narrow alley.",
+    "choices": {
+      "fight": {
+        "dialog": "You kill the zombie after a brutal struggle.",
+        "health": -20,
+        "items": [
+          { "name": "AmmoItem", "amount": 3, "category": "Shotgun" }
+        ]
+      },
+      "sneak": {
+        "dialog": "You slip behind it quietly.",
+        "stamina": -10
+      }
+    }
+  },
+
+  {
+    "name": "Sewer Groans",
+    "description": "A sewer hatch is open. Something moves in the darkness below.",
+    "choices": {
+      "investigate": {
+        "dialog": "A zombie lunges upward, forcing you to defend yourself.",
+        "health": -20,
+        "foods": [{ "name": "Noodle", "amount": 1 }]
+      },
+      "close hatch": {
+        "dialog": "You shut the hatch and escape quickly.",
+        "stamina": -10
+      }
+    }
+  },
+
+  {
+    "name": "Broken Bridge",
+    "description": "While crossing an old wooden bridge, a plank snaps beneath <name>.",
+    "choices": {
+      "cross": {
+        "dialog": {
+          "hasWeapon": "The bridge shakes violently! Your shotgun slips from your pack and falls into the river.",
+          "noWeapon": "You slip but manage to grab the railing. Nothing is lost."
+        },
+        "removeWeapon": "Shotgun",
+        "stamina": -15
+      },
+      "go around": {
+        "dialog": "You take a longer route, spending extra energy.",
+        "stamina": -20
+      }
+    }
+  },
+
+  {
+    "name": "Thief in the Shadows",
+    "description": "A quick figure sneaks behind <name> and grabs your bag.",
+    "choices": {
+      "chase": {
+        "dialog": "You chase the thief, but they escape with your {foodName}.",
+        "removeFood": { "amount": 1 },
+        "stamina": -20
+      },
+      "ignore": {
+        "dialog": "Better not risk an ambush in the dark."
+      }
+    }
+  },
+
+  {
+    "name": "Collapsed Library",
+    "description": "Books and debris cover the floor of a ruined library.",
+    "choices": {
+      "search": {
+        "dialog": "You find emergency crackers in a forgotten backpack.",
+        "foods": [{ "name": "Cracker", "amount": 2 }]
+      },
+      "leave": {
+        "dialog": "Nothing valuable here."
+      }
+    }
+  },
+
+  {
+    "name": "Quiet Garden",
+    "description": "A destroyed backyard garden still has untouched vegetables.",
+    "choices": {
+      "harvest": {
+        "dialog": "You collect fresh, edible produce.",
+        "foods": [
+          { "name": "Bread", "amount": 1 },
+          { "name": "Cracker", "amount": 1 }
+        ]
+      },
+      "rest": {
+        "dialog": "You sit among the broken planters and regain energy.",
+        "stamina": 20
+      }
+    }
+  },
+
+  {
+    "name": "Car Wreck Loot",
+    "description": "A crashed pickup sits in the road, its doors still locked.",
+    "choices": {
+      "break in": {
+        "dialog": "You break the window, cutting yourself but finding food.",
+        "health": -15,
+        "foods": [{ "name": "Bread", "amount": 1 }]
+      },
+      "search trunk": {
+        "dialog": "You pry open the trunk and find packaged noodles.",
+        "foods": [{ "name": "Noodle", "amount": 1 }]
+      }
+    }
+  },
+
+  {
+    "name": "Night Stalker",
+    "description": "At night, <name> senses a zombie creeping behind them.",
+    "choices": {
+      "confront": {
+        "dialog": "You turn and fight the lurking zombie.",
+        "health": -25
+      },
+      "hide": {
+        "dialog": "You hide until it wanders away.",
+        "stamina": -20
+      }
+    }
+  }
+]

@@ -17,13 +17,13 @@ public class Utils{
     public static void progressBar() {
         clear();
         System.out.println("Loading...");
-        for (int i = 0; i <= 30; i++) {
+        for (int i = 0; i <= 10; i++) {
             System.out.print("\r[");
 
             for (int j = 0; j < i; j++) System.out.print("#");
-            for (int j = i; j < 30; j++) System.out.print(" ");
+            for (int j = i; j < 10; j++) System.out.print(" ");
 
-            System.out.print("] " + (i * 100 / 30) + "%");
+            System.out.print("] " + (i * 100 / 10) + "%");
             sleep(70);
         }
         clear();

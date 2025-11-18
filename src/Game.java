@@ -91,6 +91,9 @@ public class Game {
                 System.out.println(TextColor.color(TextColor.RED, "\nGAME OVER."));
                 return;
             }
+
+            System.out.println(TextColor.color(TextColor.GREEN, "\n*** Press ENTER to continue... ***"));
+            sc.nextLine();
             day++;
             utils.clear();
         }

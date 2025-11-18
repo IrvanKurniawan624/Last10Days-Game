@@ -1,0 +1,476 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide empty members
+
+' ======================================================
+'                 FULL DETAILED 500+ LINES VERSION
+' ======================================================
+' AUTO-GENERATED EXPANDED UML — ALL METHODS, ALL FIELDS
+' ======================================================
+
+' ------------------------------------------------------
+'                    ACTIONS PACKAGE
+' ------------------------------------------------------
+package actions {
+
+interface Action {
+    + execute(s: Survivor, z: Zombie, ui: UI) : boolean
+}
+
+class Attack {
+    - name : String
+    - staminaCost : int
+    - baseDamage : int
+
+    + Attack()
+    + getName() : String
+    + getStaminaCost() : int
+    + getBaseDamage() : int
+    + execute(s: Survivor, z: Zombie, ui: UI) : boolean
+    + calculateDamage(weapon, survivor, zombie) : int
+}
+
+class Hide {
+    - successRate : double
+    - staminaCost : int
+
+    + Hide()
+    + getSuccessRate() : double
+    + execute(s: Survivor, z: Zombie, ui: UI) : boolean
+}
+
+class Run {
+    - escapeChance : double
+    - staminaCost : int
+
+    + Run()
+    + getEscapeChance() : double
+    + execute(s: Survivor, z: Zombie, ui: UI) : boolean
+}
+
+class UseItem {
+    - cooldown : int
+
+    + UseItem()
+    + getCooldown() : int
+    + execute(s: Survivor, z: Zombie, ui: UI) : boolean
+}
+
+Action <|.. Attack
+Action <|.. Hide
+Action <|.. Run
+Action <|.. UseItem
+
+}
+
+' ------------------------------------------------------
+'                    CONSOLE PACKAGE
+' ------------------------------------------------------
+package console {
+
+class UI {
+    + displayBanner()
+    + displayDifficultySelection()
+    + displayIntro(name : String)
+    + displayWeapons(list : List, num : int)
+    + displayFoods(list : List, num : int)
+    + showStatus(s: Survivor)
+    + showZombie(z: Zombie)
+    + showInventory(inv: Inventory)
+    + chooseAction() : int
+    + chooseItem() : int
+    + chooseWeapon() : int
+}
+
+class InputValidator {
+    + getChoiceInRange(input : String, min : int, max : int) : int
+    + isNumber(s : String) : boolean
+    + readNonEmpty() : String
+}
+
+class Utils {
+    + clear()
+    + type(text : String, time : int)
+    + progressBar()
+    + sleep(ms : int)
+    + printSlow(text : String)
+    + printLineBreak()
+}
+
+class TextColor {
+    + color(c : String, t : String)
+    + red(t : String)
+    + green(t : String)
+    + yellow(t : String)
+    + cyan(t : String)
+}
+
+class DayBanner {
+    + printDay(n : int)
+    + printDivider()
+}
+
+}
+
+' ------------------------------------------------------
+'                    SYSTEMS PACKAGE
+' ------------------------------------------------------
+package systems {
+
+class CombatSystem {
+    - round : int
+    - lastDamage : int
+
+    + CombatSystem()
+    + startCombat(s: Survivor, z: Zombie) : boolean
+    + survivorTurn(s: Survivor, z: Zombie) : void
+    + zombieTurn(s: Survivor, z: Zombie) : void
+    + isCombatOver(s : Survivor, z : Zombie) : boolean
+    + showCombatUI()
+}
+
+class ZombieSystem {
+    - spawnRate : double
+    - bossSpawnChance : double
+
+    + ZombieSystem()
+    + startEncounter(s: Survivor, day:int)
+    + spawnZombie(day: int) : Zombie
+    + rollBossSpawn(day: int) : boolean
+    + getZombieDescription(z: Zombie) : String
+}
+
+class EventSystem {
+    - eventCount : int
+
+    + EventSystem()
+    + triggerRandomEvent(s: Survivor)
+    + chooseEvent(list)
+    + processEvent(e, s)
+    + applyOutcome(o, s)
+}
+
+}
+
+' ------------------------------------------------------
+'                    ENTITIES PACKAGE
+' ------------------------------------------------------
+package entities {
+
+abstract class Character {
+    - name : String
+    - health : int
+    - maxHealth : int
+    - damage : int
+
+    + Character(name : String, health : int, damage : int)
+    + getName() : String
+    + getHealth() : int
+    + getMaxHealth() : int
+    + getDamage() : int
+    + heal(amount : int)
+    + takeDamage(amount : int)
+    + isDead() : boolean
+    + attack(target : Character)
+}
+
+class Survivor {
+    - stamina : int
+    - maxStamina : int
+    - infected : boolean
+    - infectionDays : int
+    - infectionProgress : int
+    - fearLevel : int
+    - hunger : int
+    - thirst : int
+    - inventory : Inventory
+
+    + Survivor(name : String)
+    + reduceStamina(a : int)
+    + restoreStamina(a : int)
+    + infect()
+    + cureInfection()
+    + increaseInfection()
+    + updateStats()
+    + getInventory() : Inventory
+    + addHunger(a)
+    + addThirst(a)
+    + isWeak() : boolean
+}
+
+Character <|-- Survivor
+
+' -----------------------------
+'       ZOMBIE PACKAGE
+' -----------------------------
+package zombie {
+
+abstract class Zombie {
+    - type : String
+    - damage : int
+    - health : int
+
+    + Zombie(type : String, health : int, damage : int)
+    + attack(c : Character)
+    + takeDamage(d : int)
+    + getType() : String
+    + getDamage() : int
+}
+
+class NormalZombie {
+    - speed : int
+    + NormalZombie()
+    + roar()
+}
+
+class SlasherZombie {
+    - bladeSharpness : int
+    + SlasherZombie()
+    + slash(s : Survivor)
+}
+
+class TankZombie {
+    - armor : int
+    + TankZombie()
+    + heavySlam(s : Survivor)
+}
+
+class BossZombie {
+    - enraged : boolean
+    - phase : int
+
+    + BossZombie()
+    + enterRage()
+    + finalAttack(s : Survivor)
+}
+
+Character <|-- Zombie
+Zombie <|-- NormalZombie
+Zombie <|-- SlasherZombie
+Zombie <|-- TankZombie
+Zombie <|-- BossZombie
+
+}
+
+' -----------------------------
+'        INVENTORY PACKAGE
+' -----------------------------
+package inventory {
+
+class Inventory {
+    - weapons : List
+    - foods : List
+    - items : List
+
+    + Inventory()
+    + addWeapon(w : Weapon)
+    + addFood(f : Food)
+    + addItem(i : Item)
+    + addFoodByName(n, a)
+    + addWeaponByName(n)
+    + addItemByName(n, a, c)
+    + listWeapons() : List
+    + listFoods() : List
+    + listItems() : List
+    + removeItem(i : Item)
+}
+
+Survivor o-- Inventory : has
+
+' --- WEAPONS -----------------------------------------
+package weapons {
+
+abstract class Weapon {
+    - name : String
+    - damage : int
+    - ammo : int
+    - durability : int
+
+    + Weapon(name : String, dmg : int)
+    + useAmmo()
+    + isUsable() : boolean
+    + getDamage() : int
+    + getName() : String
+    + getAmmo() : int
+}
+
+class Knife {
+    - sharpness : int
+    + sharpen()
+}
+
+class Shotgun {
+    - spread : double
+    + reload()
+}
+
+class Pistol {
+    + reload()
+}
+
+class Wand {
+    - mana : int
+    + castSpell()
+}
+
+Weapon <|-- Knife
+Weapon <|-- Shotgun
+Weapon <|-- Pistol
+Weapon <|-- Wand
+
+Inventory o-- Weapon : contains *
+
+}
+
+' --- FOODS -------------------------------------------
+package foods {
+
+abstract class Food {
+    - name : String
+    - healAmount : int
+    - staminaAmount : int
+    - quantity : int
+
+    + consume(s : Survivor)
+}
+
+class Bread
+class Noodle
+class Cracker
+
+Food <|-- Bread
+Food <|-- Noodle
+Food <|-- Cracker
+
+Inventory o-- Food : contains *
+
+}
+
+' --- ITEMS -------------------------------------------
+package items {
+
+abstract class Item {
+    - name : String
+    - amount : int
+
+    + Item(name : String, amount : int)
+    + use(s : Survivor) : boolean
+}
+
+class Antibiotic {
+    + use(s : Survivor) : boolean
+}
+
+class Bandage {
+    + use(s : Survivor) : boolean
+}
+
+class Adrenaline {
+    + use(s : Survivor) : boolean
+}
+
+Item <|-- Antibiotic
+Item <|-- Bandage
+Item <|-- Adrenaline
+
+Inventory o-- Item : contains *
+
+}
+
+}
+
+' ------------------------------------------------------
+'                     EVENT PACKAGE
+' ------------------------------------------------------
+package event {
+
+class Event {
+    - name : String
+    - description : String
+    - difficulty : int
+
+    + Event(name, desc)
+    + applyChoice(String, Survivor)
+}
+
+class EventChoice {
+    + health : int
+    + stamina : int
+    + foods : List
+    + weapons : List
+    + items : List
+
+    + EventChoice()
+}
+
+class LootItem {
+    - name : String
+    - amount : int
+}
+
+class EventList {
+    - events : List
+    + load()
+    + getEvents() : List
+}
+
+EventList --> Event
+Event --> EventChoice
+EventChoice --> LootItem
+
+}
+
+' ------------------------------------------------------
+'                       ROOT
+' ------------------------------------------------------
+class Game {
+    - day : int
+    - survivor : Survivor
+    - ui : UI
+    - eventSystem : EventSystem
+    - zombieSystem : ZombieSystem
+    - combatSystem : CombatSystem
+
+    + start()
+    + playDay()
+    + processEvents()
+    + processCombat()
+    + restPhase()
+}
+
+class Main {
+    + main(args)
+}
+
+Main --> Game
+Game --> Survivor
+Game --> ZombieSystem
+Game --> EventSystem
+Game --> UI
+
+' ------------------------------------------------------
+'                     BEHAVIOR LINKS
+' ------------------------------------------------------
+CombatSystem --> Survivor
+CombatSystem --> Zombie
+CombatSystem --> Attack
+CombatSystem --> Hide
+CombatSystem --> Run
+CombatSystem --> UseItem
+
+ZombieSystem --> CombatSystem
+ZombieSystem --> Zombie
+
+EventSystem --> EventList
+EventSystem --> Survivor
+
+
+Inventory o-- Weapon : holds
+Inventory o-- Food   : holds
+Inventory o-- Item   : holds
+
+UI --> Weapon
+UI --> Food
+UI --> Item
+
+@enduml

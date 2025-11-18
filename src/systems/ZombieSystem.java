@@ -57,8 +57,6 @@ public class ZombieSystem {
         }
 
         System.out.println(TextColor.color(TextColor.GREEN, "You defeated the zombie!"));
-        System.out.println(TextColor.color(TextColor.GREEN, "\n*** Press ENTER to continue... ***"));
-        sc.nextLine();
     }
 
     private Zombie generate(int day) {

@@ -38,6 +38,8 @@ public class Attack implements Action {
             return false;
         }
 
+        System.out.println("===========================");
+
         int damage = weapon.getDamage();
         zombie.takeDamage(damage);
 

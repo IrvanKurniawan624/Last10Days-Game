@@ -39,9 +39,7 @@
       "search": {
         "dialog": "You crawl inside and find a shotgun under debris.",
         "weapons": [{ "name": "Shotgun" }],
-        "items": [
-          { "name": "AmmoItem", "amount": 4, "category": "Shotgun" }
-        ],
+        "ammo": { "weapon": "Shotgun", "amount": 4 },
         "stamina": -20
       },
       "avoid": {
@@ -71,9 +69,7 @@
       "open": {
         "dialog": "You pry the crate open and find a clean shotgun with shells.",
         "weapons": [{ "name": "Shotgun" }],
-        "items": [
-          { "name": "AmmoItem", "amount": 6, "category": "Shotgun" }
-        ]
+        "ammo": { "weapon": "Shotgun", "amount": 6 }
       },
       "ignore": {
         "dialog": "You avoid it—something feels off."
@@ -119,9 +115,7 @@
       "fight": {
         "dialog": "You kill the zombie after a brutal struggle.",
         "health": -20,
-        "items": [
-          { "name": "AmmoItem", "amount": 3, "category": "Shotgun" }
-        ]
+        "ammo": { "weapon": "Shotgun", "amount": 3 }
       },
       "sneak": {
         "dialog": "You slip behind it quietly.",

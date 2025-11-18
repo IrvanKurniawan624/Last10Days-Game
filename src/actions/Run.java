@@ -17,7 +17,7 @@ public class Run implements Action {
 
         survivor.reduceStamina(20);
 
-        if (Math.random() < 0.7) {
+        if (Math.random() < 0.3) {
             System.out.println(TextColor.color(TextColor.GREEN, "You escaped successfully!"));
             return true;
         }

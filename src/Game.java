@@ -3,11 +3,15 @@ import console.*;
 import entities.Survivor;
 import entities.inventory.weapons.*;
 import entities.inventory.foods.*;
+import systems.*;
+import entities.event.EventList;
 
 public class Game {
     private UI ui;
+    private Utils utils = new Utils();
     private InputValidator validator;
     private Survivor player;
+    private ZombieSystem zombieSystem;
 
     private String difficulty;
 
@@ -21,7 +25,7 @@ public class Game {
         Utils.clear();
         ui.displayBanner();
         Utils.sleep(200);
-        // Utils.type(">> SYSTEM READY\n>> OBJECTIVE: SURVIVE FOR 10 DAYS", 50);
+        Utils.type(">> SYSTEM READY\n>> OBJECTIVE: SURVIVE FOR 10 DAYS", 50);
         System.out.print(TextColor.color(TextColor.RED, "Enter your name: "));
         String tempName = sc.nextLine().trim();
         Utils.clear();
@@ -32,7 +36,11 @@ public class Game {
         if (temp == 1) this.difficulty = "BABY_MODE";
         else this.difficulty = "NORMAL_MODE";
 
+
+        Utils.progressBar();
         player = new Survivor(tempName, 100, 15, 75);  
+        this.zombieSystem = new ZombieSystem(ui);
+        
 
         if (this.difficulty == "BABY_MODE") {
             player.getInventory().addWeapon(new Wand());
@@ -49,8 +57,8 @@ public class Game {
     public void start(){
         int day = 1;
         Scanner sc = new Scanner(System.in);
-
-        // Utils.progressBar();
+        EventList eventList = new EventList();
+        EventSystem eventSystem = new EventSystem(ui, eventList);
 
         System.out.print(TextColor.color(TextColor.RED, "Skip Intro (y/n) ? : "));
         String choice = sc.nextLine().trim().toLowerCase();
@@ -73,8 +81,7 @@ public class Game {
                 int roll = new Random().nextInt(100) + 1;
 
                 if (roll <= 40) {
-                    zombieSystem.startEncounter(player, day);
-                    // eventSystem.triggerEvent(player);
+                    eventSystem.triggerRandomEvent(player);
                 } else {
                     zombieSystem.startEncounter(player, day);
                 }
@@ -85,6 +92,7 @@ public class Game {
                 return;
             }
             day++;
+            utils.clear();
         }
 
     }

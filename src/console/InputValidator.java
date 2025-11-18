@@ -10,11 +10,13 @@ public class InputValidator {
                 if (value >= min && value <= max) {
                     return value;
                 } else {
-                    System.out.print("Invalid choice! Enter " + min + "-" + max + ": ");
+                    TextColor.color(TextColor.RED, "Invalid choice! Enter " + min + "-" + max + ": ");
+                    return -1;
                 }
 
             } catch (NumberFormatException e) {
                 System.out.print("Invalid input! Numbers only: ");
+                return -1;
             }
         }
     }

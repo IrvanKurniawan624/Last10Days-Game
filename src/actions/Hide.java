@@ -12,12 +12,14 @@ public class Hide implements Action {
 
         if (Math.random() < 0.5) {
             System.out.println(TextColor.color(TextColor.GREEN, "You hid successfully!"));
+            survivor.heal(25);
+            survivor.restoreStamina(10);
             return true;
         }
 
         System.out.println(TextColor.color(TextColor.RED, "You failed to hide!"));
 
-        int dmg = zombie.damage / 2;
+        int dmg = zombie.getDamage() / 2;
         survivor.takeDamage(dmg);
 
         System.out.println(TextColor.color(TextColor.RED, "Zombie hits you for " + dmg + " damage!"));

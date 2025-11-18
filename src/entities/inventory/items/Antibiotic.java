@@ -1,9 +1,9 @@
 package entities.inventory.items;
 import entities.Survivor;
 
-class Antibiotic extends Item{
-    public Antibiotic(int amount){
-        super("Antibiotic", amount);
+public class Antibiotic extends Item{
+    public Antibiotic(){
+        super("Antibiotic", 1);
     }
 
     public boolean use(Survivor survivor){

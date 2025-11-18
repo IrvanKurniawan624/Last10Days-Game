@@ -3,26 +3,28 @@ package systems;
 import console.UI;
 import console.TextColor;
 import entities.Survivor;
-import entities.zombie.Zombie;
+import entities.zombie.*;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class ZombieSystem {
 
     private UI ui;
     private CombatSystem combat;
     private Random random = new Random();
+    private Scanner sc = new Scanner(System.in);
 
     public ZombieSystem(UI ui) {
         this.ui = ui;
-        this.combat = new Combat(ui);
+        this.combat = new CombatSystem(ui);
     }
 
     public void startEncounter(Survivor survivor, int day) {
 
         Zombie zombie = generate(day);
 
-        System.out.println(TextColor.color(TextColor.RED, "\nA zombie approaches...\n"));
+        System.out.println(TextColor.color(TextColor.RED, "A zombie approaches...\n"));
 
         if (zombie instanceof BossZombie) {
             System.out.println(TextColor.color(
@@ -54,21 +56,24 @@ public class ZombieSystem {
             return;
         }
 
-        System.out.println(TextColor.color(TextColor.GREEN,
-                "You defeated the zombie!"));
+        System.out.println(TextColor.color(TextColor.GREEN, "You defeated the zombie!"));
+        System.out.println(TextColor.color(TextColor.GREEN, "\n*** Press ENTER to continue... ***"));
+        sc.nextLine();
     }
 
     private Zombie generate(int day) {
-
         if (day == 10) {
             return new BossZombie();
-        }else if (day <= 3) {
-            zombie = new NormalZombie();
-        } else {
-            double r = random.nextInt(10);
-            if (r < 5) zombie = new NormalZombie();
-            else if (r < 8) zombie = new SlasherZombie();
-            else zombie = new TankZombie();
         }
+
+        if (day <= 3) {
+            return new NormalZombie();
+        }
+
+        int r = random.nextInt(10);
+
+        if (r < 5) return new NormalZombie();
+        else if (r < 8) return new SlasherZombie();
+        else return new TankZombie();
     }
 }

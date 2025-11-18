@@ -1,4 +1,5 @@
 package entities;
+import console.TextColor;
 
 public abstract class Character {
     protected String name;
@@ -28,6 +29,7 @@ public abstract class Character {
     }
 
     public void heal(int amount) {
+        System.out.println(TextColor.color(TextColor.GREEN, "+ " + amount + " HP recovered!"));
         health = Math.min(100, health + amount);
     }
 

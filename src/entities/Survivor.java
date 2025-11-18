@@ -1,5 +1,6 @@
 package entities;
 import entities.inventory.Inventory;
+import console.TextColor;
 
 public class Survivor extends Character {
     private int stamina;
@@ -21,11 +22,13 @@ public class Survivor extends Character {
     }
 
     public void reduceStamina(int amount) {
+        System.out.println(TextColor.color(TextColor.RED, "- " + amount + " stamina reduce!"));
         stamina = Math.max(0, stamina - amount);
     }
 
-    public void restoreStamina(int amt) {
-        stamina = Math.min(100, stamina + amt);
+    public void restoreStamina(int amount) {
+        System.out.println(TextColor.color(TextColor.GREEN, "+ " + amount + " stamina recovered!"));
+        stamina = Math.min(100, stamina + amount);
     }
 
     public boolean canRun() {

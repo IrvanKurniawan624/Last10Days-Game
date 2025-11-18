@@ -15,6 +15,10 @@ public abstract class Weapon {
         return this.name;
     }
 
+    public void addAmmo(int amount) {
+        this.ammo += amount;
+    }
+
     public int getDamage(){
         return this.damage;
     }   

@@ -117,7 +117,7 @@ public class UI{
         System.out.println();
 
         displayFoods(survivor.getInventory().getFoods(), false);
-        System.out.println(TextColor.color(TextColor.BOLD, "\n===========================\n"));
+        System.out.println(TextColor.color(TextColor.BOLD, "\n==========================="));
     }
 
 }

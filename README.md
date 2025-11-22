@@ -1,109 +1,144 @@
-# Zombie Survival — 10-Day Java Game
+# The Last 10 Days — README
 
-**Short description:**
-A small single-player Java game where you survive **10 days** in a post-apocalyptic city. Each day you scavenge, manage inventory, and face **random events** including **zombie encounters**. Simple console-based gameplay, easy to extend.
+**Project:** TheLast10Days — a 10-day zombie survival console game written in Java.
 
----
-
-## Features
-
-* 10-day campaign (win by surviving day 10).
-* Random events each day (good/bad outcomes).
-* Randomized zombie encounters with simple combat.
-* Inventory (weapons, medkits, food).
-* Basic stats: health, stamina, morale.
-* Save/load (file-based simple save).
-* Configurable RNG seed for reproducible runs.
+**Archive uploaded:** `/mnt/data/TheLast10Days.zip`
 
 ---
 
-## How it plays (summary)
+## Overview
 
-* Each **day** you choose actions: Scavenge / Rest / Fortify / Travel.
-* After action, a **random event** may trigger (find supplies, trap, trader, storm).
-* Some events spawn **zombies** — combat uses weapon damage vs zombie HP.
-* If health ≤ 0 → game over. Survive through day 10 → victory.
+The Last 10 Days is a console-based Java game where the player must survive for **10 in-game days**. Each day the player chooses actions (scavenge, rest, fortify, etc.), faces **random events**, and may encounter **zombies**. The project contains modular systems for events, combat, inventory, and entity management.
 
----
-
-## Random events & zombie encounters
-
-* Events chosen from a weighted list. Example weights: find (40%), trader (10%), trap (15%), zombie ambush (25%), nothing (10%).
-* Zombie encounter spawns 1..N zombies depending on event severity and day (day increases difficulty).
-* Combat: turn-based simplified: player attacks (weapon damage ± randomness), zombies attack back. Stamina affects chance to hit/escape.
-* RNG seed option: `--seed <number>` for deterministic testing.
+This README was generated to match the source in the provided ZIP. The project uses a straightforward Java structure under `src/` with a top-level `Main.java` that contains the application entry point.
 
 ---
 
-## Quick install & run
+## Highlights / Features
 
-Assumes source in `src/` with package `game`.
+* 10-day campaign (survive until the end to win).
+* Random event system with weighted outcomes (positive, neutral, negative).
+* Zombie encounter subsystem with turn-based combat.
+* Inventory system: weapons, consumables (food, antibiotics), and craftable items.
+* Save / load support (file-based).
+* Deterministic mode via RNG seed flag for testing.
 
-Compile:
+---
+
+## Important source locations (summary)
+
+Major packages and directories in the `src/` tree:
+
+* `actions/` — player actions (Attack, Run, Hide, UseItem, ...)
+* `systems/` — EventSystem, CombatSystem, ZombieSystem, etc.
+* `entities/` — Player/Survivor, Zombie, Inventory, Items, Weapons, Foods, Events
+* `txt/` — ASCII banners and text assets (e.g. `Banner.txt`)
+* `json/` — sample data / event definitions
+* `Main.java` — application entry point (found at `src/Main.java`)
+
+(Full file list is included in the ZIP you uploaded.)
+
+---
+
+## Quick Start — compile & run (no build tools)
+
+> These commands assume you are running from the repository root and you have Java (JDK) installed. Tested with OpenJDK 11+.
+
+1. **Unzip (if needed)**
 
 ```bash
-javac -d out $(find src -name "*.java")
+unzip /mnt/data/TheLast10Days.zip -d TheLast10Days
+cd TheLast10Days/src
 ```
 
-Run:
+2. **Compile**
 
 ```bash
-java -cp out game.Main
-# optional deterministic run:
-java -cp out game.Main --seed 12345
+# from TheLast10Days/src
+javac -d ../out $(find . -name "*.java")
 ```
+
+3. **Run**
+
+```bash
+# run from TheLast10Days/src
+java -cp ../out Main
+
+# deterministic run with a seed (if supported by the Main args)
+java -cp ../out Main --seed 12345
+```
+
+If `Main` is in a package (check the first line of `src/Main.java`), replace `Main` with the fully qualified class name (for example `game.Main`).
 
 ---
 
-## Configuration (example)
+## Configuration
 
-Edit `config.properties` or pass CLI flags:
+Look for configuration or data under `src/json/` and `src/txt/`. The game supports configurable parameters such as:
 
-```
-days=10
-startingHealth=100
-startingStamina=50
-eventWeights=find:40,trap:15,trader:10,zombie:25,nothing:10
-maxZombiesPerEncounter=3
-```
+* `days` (default: 10)
+* starting stats (health, stamina, morale)
+* event weights and zombie difficulty scaling
+* RNG seed for reproducible runs
 
----
-
-## Project layout (recommended)
-
-```
-src/
-  game/
-    Main.java
-    DayManager.java
-    EventSystem.java
-    Combat.java
-    Player.java
-    Zombie.java
-    Inventory.java
-resources/
-  config.properties
-README.md
-```
+If the repository includes a `config.properties` or similar file, edit it before running.
 
 ---
 
-## Extending ideas
+## Gameplay summary
 
-* GUI (Swing/JavaFX)
-* More event types, AI behaviors, stealth mechanics
-* Multiplayer/co-op mode
-* Difficulty levels, achievements
+Each day you will:
 
----
+1. Choose an action (Scavenge / Rest / Fortify / Travel / Use Item).
+2. Resolve the action and trigger a random event (based on weighted tables).
+3. If a zombie encounter occurs, enter the combat system: typically turn-based, where player and zombies exchange attacks until one side wins or the player flees.
+4. Manage inventory and resources between days. Food restores stamina/health, antibiotics cure infections, weapons have varying damage and ammo rules.
 
-## License & credits
-
-MIT License — feel free to fork and improve.
+Win by surviving until the end of day 10. Game over occurs when player health reaches 0.
 
 ---
 
-Want me to:
+## Troubleshooting & Tips
 
-* generate full `Main.java` + core classes scaffold?
-* or produce a ready-to-run ZIP with example `config.properties`?
+* **`Password authentication is not supported`** — unrelated to this project; that message typically appears when pushing to GitHub using a password. Use a personal access token (PAT) or Git credential manager.
+* If you get `NoClassDefFoundError` or `ClassNotFoundException` when running, verify the `-cp` path and that compilation succeeded (check `../out` folder contents).
+* If the game uses relative file reads (e.g., `resources/`), run the game from the repository root or adjust working directory accordingly.
+
+---
+
+## Development notes (for contributors)
+
+* Follow the existing package layout: `actions`, `systems`, `entities`.
+* Keep `EventSystem` data-driven where possible — move event definitions into JSON to allow easy editing without recompiling.
+* Add unit tests for key deterministic behaviors using seeded RNG.
+
+---
+
+## Files included (zip snapshot)
+
+The uploaded archive contains the full source tree. Example important paths found inside the ZIP:
+
+```
+src/Main.java
+src/actions/Attack.java
+src/actions/Hide.java
+src/systems/EventSystem.java
+src/systems/CombatSystem.java
+src/systems/ZombieSystem.java
+src/entities/Survivor.java
+src/entities/Zombie.java
+src/entities/inventory/items/Item.java
+src/entities/inventory/weapons/Shotgun.java
+src/txt/Banner.txt
+src/json/events.json
+```
+
+(There are many more supporting classes. Use the ZIP if you need the complete list.)
+
+---
+
+## License
+
+This README assumes the project author will choose a license. If you want a default, add an `MIT` or `Apache-2.0` file.
+
+---

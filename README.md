@@ -1,144 +1,144 @@
-# The Last 10 Days — README
+# 🧟‍♂️ **The Last 10 Days** — Retro Arcade Zombie Adventure
 
-**Project:** TheLast10Days — a 10-day zombie survival console game written in Java.
+![Gameplay Screenshot](ss/img_1.png)** — Retro Arcade Zombie Adventure
 
-**Archive uploaded:** `/mnt/data/TheLast10Days.zip`
+**Repository:** [https://github.com/IrvanKurniawan624/Last10Days-Game](https://github.com/IrvanKurniawan624/Last10Days-Game)
 
----
+Step into a neon–soaked apocalypse where pixelated terror meets classic arcade charm. **The Last 10 Days** is a retro‑styled console adventure where survival, luck, and fast choices decide whether you see the sunrise on Day 10… or fall victim to the undead.
 
-## Overview
-
-The Last 10 Days is a console-based Java game where the player must survive for **10 in-game days**. Each day the player chooses actions (scavenge, rest, fortify, etc.), faces **random events**, and may encounter **zombies**. The project contains modular systems for events, combat, inventory, and entity management.
-
-This README was generated to match the source in the provided ZIP. The project uses a straightforward Java structure under `src/` with a top-level `Main.java` that contains the application entry point.
+Brace yourself — grab your weapon, loot fast, and pray to the RNG gods. The city is crawling.
 
 ---
 
-## Highlights / Features
+ ## 🎮 **Story**
+                                               
+A desperate journey across a collapsing world. A neon-lit retro nightmare.
 
-* 10-day campaign (survive until the end to win).
-* Random event system with weighted outcomes (positive, neutral, negative).
-* Zombie encounter subsystem with turn-based combat.
-* Inventory system: weapons, consumables (food, antibiotics), and craftable items.
-* Save / load support (file-based).
-* Deterministic mode via RNG seed flag for testing.
+**You have only 10 days to reach Arcadia — the last safe zone still standing.**
 
----
+The undead swarm the streets. Districts fall one by one. Supplies are scarce, danger is everywhere, and every corner hides a new threat.
 
-## Important source locations (summary)
+But rumors say Arcadia still has walls… still has life… still has hope.
 
-Major packages and directories in the `src/` tree:
-
-* `actions/` — player actions (Attack, Run, Hide, UseItem, ...)
-* `systems/` — EventSystem, CombatSystem, ZombieSystem, etc.
-* `entities/` — Player/Survivor, Zombie, Inventory, Items, Weapons, Foods, Events
-* `txt/` — ASCII banners and text assets (e.g. `Banner.txt`)
-* `json/` — sample data / event definitions
-* `Main.java` — application entry point (found at `src/Main.java`)
-
-(Full file list is included in the ZIP you uploaded.)
+Your mission is simple:
+**Survive long enough to get there.**
 
 ---
 
-## Quick Start — compile & run (no build tools)
+## ⭐ **Key Features** (Arcade Style)
 
-> These commands assume you are running from the repository root and you have Java (JDK) installed. Tested with OpenJDK 11+.
+* 🗓️ **10‑Day Survival Challenge** — every run is different.
+* 🎲 **RNG‑Driven Events** — lucky finds, brutal traps, traders, ambushes.
+* 🧟 **Zombie Encounters** — fast, turn‑based fights with retro pacing.
+* 🔫 **Classic Weapons** — bat, pistol, shotgun, and more.
+* 🎒 **Inventory & Items** — food, meds, antibiotics, loot.
+* ❤️ **Stats System** — health, stamina, infection.
 
-1. **Unzip (if needed)**
+---
+
+## 🕹️ **How to Play**
+
+1. Start a new run.
+2. Choose your daily action:
+
+   * Fight
+   * Rest
+   * Run
+   * Daily Event
+   * Use Items
+3. Survive random events.
+4. Fight (or flee from) zombies.
+5. Manage resources.
+6. Repeat until you hit **Day 10**… or die trying.
+
+Every choice matters — some days bless you with loot, others curse you with hordes.
+
+---
+
+## 💾 **Installation & Running**
+
+### **Clone the repo**
 
 ```bash
-unzip /mnt/data/TheLast10Days.zip -d TheLast10Days
-cd TheLast10Days/src
+git clone https://github.com/IrvanKurniawan624/Last10Days-Game
+cd Last10Days-Game
 ```
 
-2. **Compile**
+### **Compile**
 
 ```bash
-# from TheLast10Days/src
-javac -d ../out $(find . -name "*.java")
+javac -cp /usr/share/java/gson.jar -d out $(find src -name "*.java")   
 ```
 
-3. **Run**
+### **Run**
 
 ```bash
-# run from TheLast10Days/src
-java -cp ../out Main
-
-# deterministic run with a seed (if supported by the Main args)
-java -cp ../out Main --seed 12345
+java  -cp out:/usr/share/java/gson.jar Main                                                                    
 ```
 
-If `Main` is in a package (check the first line of `src/Main.java`), replace `Main` with the fully qualified class name (for example `game.Main`).
-
----
-
-## Configuration
-
-Look for configuration or data under `src/json/` and `src/txt/`. The game supports configurable parameters such as:
-
-* `days` (default: 10)
-* starting stats (health, stamina, morale)
-* event weights and zombie difficulty scaling
-* RNG seed for reproducible runs
-
-If the repository includes a `config.properties` or similar file, edit it before running.
-
----
-
-## Gameplay summary
-
-Each day you will:
-
-1. Choose an action (Scavenge / Rest / Fortify / Travel / Use Item).
-2. Resolve the action and trigger a random event (based on weighted tables).
-3. If a zombie encounter occurs, enter the combat system: typically turn-based, where player and zombies exchange attacks until one side wins or the player flees.
-4. Manage inventory and resources between days. Food restores stamina/health, antibiotics cure infections, weapons have varying damage and ammo rules.
-
-Win by surviving until the end of day 10. Game over occurs when player health reaches 0.
-
----
-
-## Troubleshooting & Tips
-
-* **`Password authentication is not supported`** — unrelated to this project; that message typically appears when pushing to GitHub using a password. Use a personal access token (PAT) or Git credential manager.
-* If you get `NoClassDefFoundError` or `ClassNotFoundException` when running, verify the `-cp` path and that compilation succeeded (check `../out` folder contents).
-* If the game uses relative file reads (e.g., `resources/`), run the game from the repository root or adjust working directory accordingly.
-
----
-
-## Development notes (for contributors)
-
-* Follow the existing package layout: `actions`, `systems`, `entities`.
-* Keep `EventSystem` data-driven where possible — move event definitions into JSON to allow easy editing without recompiling.
-* Add unit tests for key deterministic behaviors using seeded RNG.
-
----
-
-## Files included (zip snapshot)
-
-The uploaded archive contains the full source tree. Example important paths found inside the ZIP:
+## 🎯 **Gameplay Loop**
 
 ```
-src/Main.java
-src/actions/Attack.java
-src/actions/Hide.java
-src/systems/EventSystem.java
-src/systems/CombatSystem.java
-src/systems/ZombieSystem.java
-src/entities/Survivor.java
-src/entities/Zombie.java
-src/entities/inventory/items/Item.java
-src/entities/inventory/weapons/Shotgun.java
-src/txt/Banner.txt
-src/json/events.json
+DAY START → Choose Action → Random Event / Zombie Encounter → Loot/Status Update → Next Day
 ```
 
-(There are many more supporting classes. Use the ZIP if you need the complete list.)
+Fast, simple, addictive — just like old arcade survival titles.
 
 ---
 
-## License
+## 🎮 Controls
 
-This README assumes the project author will choose a license. If you want a default, add an `MIT` or `Apache-2.0` file.
+This is a console game — controls depend on menu choices:
+
+```
+1 / 2 / 3 / 4 / 5  → actions
+Y / N              → confirmations
+Enter              → continue dialogs
+```
+
+---
+
+## 🏗️ **Project Structure**
+
+```
+src/
+  actions/      // attack, hide, run, use item...
+  systems/      // combat, random events, zombie system
+  entities/     // survivor, zombies, items, weapons
+  txt/          // ascii banners
+  json/         // event data
+Main.java
+```
+
+---
+
+## 🛠️ Tech Stack
+
+* **Java** (console)
+* Minimal external dependencies
+* Pure object‑oriented architecture with modular systems
+
+---
+
+## 👥 **Credits**
+
+**Developer:** my-celp
+
+---
+
+## 🚁 **Final Goal**
+
+Survive all **10 days** until rescue arrives.
+Do that… and you win.
+
+Die early?
+that means *skill issue?.* including if you u baby mode
+
+---
+
+## 🔗 Links
+
+* **GitHub Repo:** [https://github.com/IrvanKurniawan624/Last10Days-Game](https://github.com/IrvanKurniawan624/Last10Days-Game)
+* **Issues:** Report bugs or request features directly on GitHub
 
 ---

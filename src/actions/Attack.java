@@ -31,6 +31,8 @@ public class Attack implements Action {
         System.out.print("> ");
         int choice = validator.getChoiceInRange(sc.nextLine().trim(), 1, weapons.size());
 
+        if(choice == -1){return false;}
+
         Weapon weapon = weapons.get(choice - 1);
 
         if (!weapon.isUsable()) {

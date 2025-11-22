@@ -11,7 +11,6 @@ import console.TextColor;
 import console.InputValidator;
 
 public class CombatSystem {
-
     private UI ui;
     private Utils utils = new Utils();
     private Scanner sc = new Scanner(System.in);
@@ -34,6 +33,7 @@ public class CombatSystem {
         ));
 
         while (!zombie.isDead() && !survivor.isDead()) {
+            boolean notLoopCombat = true;
             boolean skipAttack = false;
             System.out.println(TextColor.color(TextColor.CYAN, "\nYour Actions:"));
             System.out.println("1) Attack");
@@ -49,7 +49,7 @@ public class CombatSystem {
 
             switch (choice) {
                 case 1:
-                    attack.execute(survivor, zombie, ui);
+                    notLoopCombat = attack.execute(survivor, zombie, ui);
                     break;
 
                 case 2:
@@ -58,8 +58,6 @@ public class CombatSystem {
 
                 case 3:
                     skipAttack = run.execute(survivor, zombie, ui);
-                    if (skipAttack)
-                        return true; 
                     break;
 
                 case 4:
@@ -69,6 +67,8 @@ public class CombatSystem {
                     utils.clear();
                     break;
             }
+
+            if(!notLoopCombat){continue;}
 
             if (!skipAttack && !zombie.isDead()) {
                 System.out.println(TextColor.color(TextColor.RED, "\nZombie attacks dealt : " + zombie.getDamage() + " damage" ));

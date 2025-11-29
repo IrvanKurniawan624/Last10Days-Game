@@ -7,6 +7,7 @@ import entities.inventory.weapons.Weapon;
 import entities.inventory.foods.Food;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class UI{
     public void displayBanner() {
@@ -29,6 +30,7 @@ public class UI{
 
     public void displayIntro(String name) {
         Utils.clear();
+        Scanner sc = new Scanner(System.in);
 
         String intro = TextColor.color(TextColor.BOLD,
             "My name is " + name + "... and this city is dying.") +
@@ -61,6 +63,9 @@ public class UI{
             TextColor.color(TextColor.BOLD, "Survive the next 10 days, " + name + ".");
 
         Utils.type(intro, 15);
+
+        System.out.println(TextColor.color(TextColor.GREEN, "\n*** Press ENTER to continue... ***"));
+        sc.nextLine();
     }
 
     public void displayWeapons(List<Weapon> weapons, boolean numbered) {

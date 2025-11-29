@@ -40,6 +40,6 @@ public class UseItem implements Action {
             foods.remove(selectedFood);
         }
 
-        return true;
+        return false;
     }
 }

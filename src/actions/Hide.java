@@ -14,7 +14,7 @@ public class Hide implements Action {
             System.out.println(TextColor.color(TextColor.GREEN, "You hid successfully!"));
             survivor.heal(25);
             survivor.restoreStamina(10);
-            return true;
+            return false;
         }
 
         System.out.println(TextColor.color(TextColor.RED, "You failed to hide!"));
@@ -24,6 +24,6 @@ public class Hide implements Action {
 
         System.out.println(TextColor.color(TextColor.RED, "Zombie hits you for " + dmg + " damage!"));
 
-        return true;
+        return false;
     }
 }

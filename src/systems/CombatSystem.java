@@ -27,14 +27,15 @@ public class CombatSystem {
 
     public boolean startCombat(Survivor survivor, Zombie zombie) {
 
+        boolean skipAttack = false;
+
         System.out.println(TextColor.color(
             TextColor.YELLOW,
             "A zombie appears: " + zombie.getName() + " (HP: " + zombie.getHealth() + ")"
         ));
 
-        while (!zombie.isDead() && !survivor.isDead()) {
+        while (!zombie.isDead() && !survivor.isDead() && !skipAttack) {
             boolean notLoopCombat = true;
-            boolean skipAttack = false;
             System.out.println(TextColor.color(TextColor.CYAN, "\nYour Actions:"));
             System.out.println("1) Attack");
             System.out.println("2) Use Food");
@@ -53,7 +54,7 @@ public class CombatSystem {
                     break;
 
                 case 2:
-                    useItem.execute(survivor, zombie, ui);
+                    notLoopCombat = useItem.execute(survivor, zombie, ui);
                     break;
 
                 case 3:
@@ -61,21 +62,22 @@ public class CombatSystem {
                     break;
 
                 case 4:
-                    skipAttack = hide.execute(survivor, zombie, ui);
+                    notLoopCombat = hide.execute(survivor, zombie, ui);
                     break;
                 default:
                     utils.clear();
                     break;
             }
 
-            if(!notLoopCombat){continue;}
 
-            if (!skipAttack && !zombie.isDead()) {
+            if (!skipAttack && !zombie.isDead() && notLoopCombat) {
                 System.out.println(TextColor.color(TextColor.RED, "\nZombie attacks dealt : " + zombie.getDamage() + " damage" ));
                 zombie.attack(survivor);
             }
-            System.out.println("Your HP: " + survivor.getHealth());
-            System.out.println("Your Stamina: " + survivor.getStamina());
+            if(notLoopCombat || choice != 1){
+                System.out.println("Your HP: " + survivor.getHealth());
+                System.out.println("Your Stamina: " + survivor.getStamina());
+            }
         }
 
         return survivor.getHealth() > 0;

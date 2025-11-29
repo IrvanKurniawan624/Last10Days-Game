@@ -67,13 +67,13 @@ cd Last10Days-Game
 ### **Compile**
 
 ```bash   
-javac -cp lib/gson.jar -d out $(find src -name "*.java")
+javac -cp lib/gson-2.10.1.jar -d out $(find src -name "*.java")
 ```
 
 ### **Run**
 
 ```bash
-java -cp out:lib/gson.jar Main
+java -cp out:lib/gson-2.10.1.jar Main
 Main                                                                    
 ```
 

@@ -73,8 +73,7 @@ javac -cp lib/gson-2.10.1.jar -d out $(find src -name "*.java")
 ### **Run**
 
 ```bash
-java -cp out:lib/gson-2.10.1.jar Main
-Main                                                                    
+java -cp out:lib/gson-2.10.1.jar Main                                                  
 ```
 
 ## 🎯 **Gameplay Loop**
@@ -94,7 +93,6 @@ This is a console game — controls depend on menu choices:
 ```
 1 / 2 / 3 / 4 / 5  → actions
 Y / N              → confirmations
-Enter              → continue dialogs
 ```
 
 ---
